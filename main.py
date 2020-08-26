@@ -19,7 +19,7 @@ def cli():
 @cli.command()
 @click.option('-s', '--seed', default=None, type=int,
               help='Seed for reproducibility.')
-@click.option('--use_seed', default=True, type=bool,
+@click.option('--use_seed/--no_seed', default=False,
               help='Use a seed for reproducibility?')
 @click.option('-d', '--device', default=None, type=str,
               help='Torch device to use.')
@@ -27,7 +27,7 @@ def cli():
               help='Number of epochs for training.')
 @click.option('-b', '--batch_size', default=BATCH_SIZE, type=int,
               help='Size of batches for training.')
-@click.option('-r', '--representations', default='pca,lda,fast_ica', type=str,
+@click.option('-r', '--representations', default='pca,lda,original', type=str,
               help='Representations to use: Original, PCA, LDA, Fast_ICA, '
                    'Kernel_PCA, and/or UMAP')
 @click.option('-m', '--metrics', default='accuracy', type=str,
@@ -89,19 +89,14 @@ def record(seed, use_seed, device, epochs, batch_size,
 @click.argument('what', default='specified', type=str)
 @click.option('-f', '--framerate', default=FRAMERATE, type=int,
               help='Number of frames per second.')
-@click.option('-r', '--representations', default='pca,lda,fast_ica', type=str,
+@click.option('-r', '--representations', default='all', type=str,
               help='Representations to use: Original, PCA, LDA, Fast_ICA, '
                    'Kernel_PCA, and/or UMAP')
 @click.option('-s', '--specified', default='', type=click.Path(),
               help='Specified record file.')
 @click.option('-l', '--animations_location', default=ANIMATIONS_PATH,
               type=str, help='Animations\' location')
-@click.option('-o', '--output', default=None, type=str,
-              help='Name of the animation file produced.')
-@click.option('-t', '--title', default=None, type=str,
-              help='Title of the figure.')
-def animate(what, framerate, representations, specified, animations_location,
-            output, title):
+def animate(what, framerate, representations, specified, animations_location):
     if not os.path.exists(RECORDS_PATH):
         click.echo(f'The following directory doesn\'t exist:\n{RECORDS_PATH}\n')
         return
