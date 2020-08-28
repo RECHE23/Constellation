@@ -6,8 +6,8 @@ from . import *
 
 def start_record(models, datasets, device, batch_size, representations, epochs,
                  metrics):
-    for model_name, model in models.items():
-        for ds in datasets:
+    for ds in datasets:
+        for model_name, model in models.items():
             print(f'{model_name} with {ds.name} :\n')
             ds.to(device)
             splitter = DataSplit(ds, test_train_split=TEST_TRAIN_SPLIT,
