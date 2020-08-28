@@ -43,7 +43,7 @@ To establish the models, you can do so by importing them in ``datasets.py`` or b
 
 The wrapper class ``DS`` has to be used. For examples of datasets, you can look at the content of ``record/datasets/collection``.
 
-The simplest use of the ``DS`` wrapper is ``DS(data=X, target=y)``, where ``X`` is a numpy array of the samples and ``y`` is a numpy array of the targets (Following the same shape as Sci-Kit Learn datasets when using ``return_X_y``.).
+The simplest use of the ``DS`` wrapper is ``DS(data=X, target=y)``, where ``X`` is a Numpy array of the samples and ``y`` is a Numpy array of the targets (Following the same shape as Sci-Kit Learn datasets when using ``return_X_y``.).
 
 To make the datasets available to Constellation, they have to be inserted in the ``datasets`` list.
 
@@ -113,7 +113,7 @@ python main.py animate
 ```
 
 #### Animate a specific representation
-To specify a representations, you can use the ``-r`` option.
+To specify representations, you can use the ``-r`` option.
 
 For example:
 ```bash

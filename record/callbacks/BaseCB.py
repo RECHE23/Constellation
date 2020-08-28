@@ -11,8 +11,19 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 class BaseCB(Callback):
+    """
+    The base callback. It is the callback that establishes the basis for the
+    recordings. It saves the recording in the file at the end of every epoch.
+    """
     def __init__(self, model_name, dataset_name,
                  records_path=RECORDS_PATH):
+        """
+        Constructor of the class.
+
+        :param model_name: The name of the neural network.
+        :param dataset_name: The name of the dataset being recorded.
+        :param records_path: The location where the file is being saved.
+        """
         super().__init__()
 
         filename = f'{model_name}_{dataset_name}'
@@ -28,21 +39,33 @@ class BaseCB(Callback):
         self.filename = filename
 
     def on_train_begin(self, logs):
+        """
+        The method called when the training begins.
+        """
         item = {'epoch': self.epoch_number,
                 'batch': 0}
 
         self.record.append(item)
 
     def on_train_batch_end(self, batch, logs):
+        """
+        The method called when the training on a batch is completed.
+        """
         item = {'epoch': self.epoch_number,
                 'batch': batch}
 
         self.record.append(item)
 
     def on_epoch_begin(self, epoch_number, logs):
+        """
+        The method called when a new epoch begins.
+        """
         self.epoch_number = epoch_number
 
     def on_epoch_end(self, epoch_number, logs):
+        """
+        The method called when an epoch ends.
+        """
         if not os.path.exists(self.records_path):
             os.mkdir(self.records_path)
 

@@ -67,10 +67,10 @@ def record(seed, use_seed, device, epochs, batch_size,
         metrics = metrics_list.keys()
     else:
         metrics = re.sub(r"[^\w]", ' ', metrics).split()
-    click.echo('Metrics:')
-    for metric in metrics:
-        click.echo(f'- {metric}')
-    click.echo('')
+    #click.echo('Metrics:')
+    #for metric in metrics:
+    #    click.echo(f'- {metric}')
+    #click.echo('')
 
     if representations == 'all':
         representations = list(projections_list.keys())
@@ -97,6 +97,9 @@ def record(seed, use_seed, device, epochs, batch_size,
 @click.option('-l', '--animations_location', default=ANIMATIONS_PATH,
               type=str, help='Animations\' location')
 def animate(what, framerate, representations, specified, animations_location):
+    """
+    Animates the recordings of the models during training.
+    """
     if not os.path.exists(RECORDS_PATH):
         click.echo(f'The following directory doesn\'t exist:\n{RECORDS_PATH}\n')
         return

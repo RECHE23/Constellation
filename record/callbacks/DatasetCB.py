@@ -5,7 +5,17 @@ from poutyne.utils import torch_to_numpy
 
 
 class DatasetCB(Callback):
+    """
+    This callback saves the information about the dataset.
+    """
     def __init__(self, base_callback, dataset, batch_size):
+        """
+        Constructor of the class.
+
+        :param base_callback: The base callback.
+        :param dataset: The dataset being used.
+        :param batch_size: The size of a batch.
+        """
         super().__init__()
         self.base_callback = base_callback
         self.dataset = dataset

@@ -19,7 +19,7 @@ class DS(Dataset):
         """
         Constructor of the class.
 
-        :param data: The original characteristics matrix (as a PyTorch Tensor).
+        :param data: The original samples matrix (as a PyTorch Tensor).
         :param target: The target classes (-1 or 1, as a PyTorch Tensor).
         :param feature_names: The name of the features, as stored in 'data'.
         :param target_names: The target names (1 is the specified class,
@@ -40,9 +40,15 @@ class DS(Dataset):
         super(DS, self).__init__()
 
     def __len__(self) -> int:
+        """
+        Returns the length of the dataset.
+        """
         return len(self.data)
 
     def __getitem__(self, index: int) -> [Tensor, Tensor]:
+        """
+        Returns a sample and its label for a given index.
+        """
         return [self.data[index], self.targets[index]]
 
     def to(self, device: torch.device) -> None:

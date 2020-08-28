@@ -8,7 +8,18 @@ from .. import *
 
 
 class DecisionBoundariesCB(Callback):
+    """
+    The callback that saves the decision boundary and the information needed to
+    plot it.
+    """
     def __init__(self, base_callback, dataset, representations):
+        """
+        Constructor of the class.
+
+        :param base_callback: The base callback.
+        :param dataset: The dataset being used.
+        :param representations: The representations to use.
+        """
         representations = [representation.lower()
                            for representation in representations]
         assert all([representation in projections_list
@@ -39,14 +50,27 @@ class DecisionBoundariesCB(Callback):
         self.experiment['representations'] = self.representations
 
     def on_train_begin(self, logs):
+        """
+        The method called when the training begins.
+        """
         self.record[-1]['z'] = {representation: self._get_z(representation)
                                 for representation in self.representations}
 
     def on_train_batch_end(self, batch, logs):
+        """
+        The method called when the training on a batch is completed.
+        """
         self.record[-1]['z'] = {representation: self._get_z(representation)
                                 for representation in self.representations}
 
     def _get_z(self, representation):
+        """
+        A method that retrieves the response of the classifier for every point
+        of the grid that represents the 2D graphic of the decision boundaries.
+
+        :param representation: The representation (ex.: pca, lda, or original)
+        :return: The response of the classifier for every point of the grid.
+        """
         grid = self.representations[representation]['grid']
         grid = numpy_to_torch(grid).float()
         shape = self.representations[representation]['grid_xy'][0].shape
@@ -55,6 +79,14 @@ class DecisionBoundariesCB(Callback):
         return z.reshape(shape)
 
     def _get_x_plot(self, data, representation):
+        """
+        A method that retrieves the position of every sample in the projected
+        space (representation).
+
+        :param data: The samples in the original space.
+        :param representation: The projection to be used.
+        :return: The samples in the projected space.
+        """
         projection = self.projections[representation]
 
         if representation == 'lda':
@@ -63,6 +95,15 @@ class DecisionBoundariesCB(Callback):
         return projection.fit_transform(X=data)
 
     def _get_grid(self, grid_xy, representation):
+        """
+        The grid used to build the decision boundary, in the original space.
+        (This essentially returns synthetic samples that would map to every
+        point of the grid that forms viewed plane in the projected space.)
+
+        :param grid_xy: A 2D mesh grid in the projected space.
+        :param representation: The projection to be used.
+        :return: The mesh grid in the original space (synthetic samples).
+        """
         projection = self.projections[representation]
         grid_x, grid_y = grid_xy
         grid = np.c_[grid_x.ravel(), grid_y.ravel()]
@@ -74,6 +115,13 @@ class DecisionBoundariesCB(Callback):
 
     @staticmethod
     def _get_mesh_grid(x_plot):
+        """
+        Constructs a 2D mesh grid from a set of samples using its span in the
+        first two dimensions.
+
+        :param x_plot: The samples in the projected space.
+        :return: A 2D mesh grid in the projected space.
+        """
         x = set(x_plot[:, 0])
         y = set(x_plot[:, 1])
         x_span = np.linspace(min(x), max(x), num=RESOLUTION)
