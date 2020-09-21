@@ -19,7 +19,7 @@ def cli():
 @cli.command()
 @click.option('-s', '--seed', default=None, type=int,
               help='Seed for reproducibility.')
-@click.option('--use_seed/--no_seed', default=False,
+@click.option('--use_seed/--no_seed', default=True,
               help='Use a seed for reproducibility?')
 @click.option('-d', '--device', default=None, type=str,
               help='Torch device to use.')

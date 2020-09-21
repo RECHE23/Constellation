@@ -16,8 +16,8 @@ def layout_menu():
     filename = click.prompt('Please enter the name of the animation file',
                             type=str, default=filename)
     filename = re.sub(r"[^\w.]", '_', filename)
-    eps = click.prompt('Please enter the number of epochs per second',
-                       type=int, default=3)
+    fpe = click.prompt('Please enter the number of frames per epoch',
+                       type=int, default=8)
 
     print("Loading the experiments... It may take a while.")
 
@@ -147,12 +147,13 @@ def layout_menu():
         matrix.append(row)
 
     epochs = min(epochs)
-    frames = round(epochs * FRAMERATE / eps)
+    frames = round(epochs * fpe)
 
     layout = GridLayout(matrix, frames, title=title, cols=cols, rows=rows)
 
     def update(k):
-        epoch = round(k / FRAMERATE * eps)
+        epoch = round(k / fpe)
+        percent = k / frames
 
         display_progress_bar(k,
                              total=frames,
@@ -161,7 +162,9 @@ def layout_menu():
                              length=60)
         for row in layout.matrix:
             for db in row:
-                db.update(round(k / frames * db.input_data.experiment['record'][-1]['batch'] * epochs))
+                last_frame = db.input_data.experiment['epochs_index'][epochs][-1]
+                frame = round(percent * last_frame)
+                db.update(frame)
 
         layout.update(epoch=epoch,
                       epochs=epochs)

@@ -124,7 +124,7 @@ class DecisionBoundariesCB(Callback):
         """
         x = set(x_plot[:, 0])
         y = set(x_plot[:, 1])
-        x_span = np.linspace(min(x), max(x), num=RESOLUTION)
-        y_span = np.linspace(min(y), max(y), num=RESOLUTION)
+        x_span = np.linspace(min(x) - 0.08, max(x) + 0.08, num=RESOLUTION)
+        y_span = np.linspace(min(y) - 0.08, max(y) + 0.08, num=RESOLUTION)
 
         return np.meshgrid(x_span, y_span)

@@ -7,6 +7,7 @@ datasets_list = {
     'Blobs5DDS': Blobs5DDS,
     'BreastCancerDS': BreastCancerDS,
     'CirclesDS': CirclesDS,
+    'DigitsDS': DigitsDS,
     'IrisDS': IrisDS,
     'MNIST784DS': MNIST784DS,
     'MoonsDS': MoonsDS

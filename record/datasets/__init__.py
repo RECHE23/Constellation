@@ -1,6 +1,6 @@
 from .DS import DS
 from .collection import BlobsDS, Blobs5DDS, BreastCancerDS, CirclesDS, \
-    IrisDS, MNIST784DS, MoonsDS
+    IrisDS, MNIST784DS, MoonsDS, DigitsDS
 from .DataSplit import DataSplit
 
 __all__ = ['DS',
@@ -9,6 +9,7 @@ __all__ = ['DS',
            'BreastCancerDS',
            'CirclesDS',
            'DataSplit',
+           'DigitsDS',
            'IrisDS',
            'MNIST784DS',
            'MoonsDS']

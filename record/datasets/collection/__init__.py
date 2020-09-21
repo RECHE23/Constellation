@@ -1,6 +1,7 @@
 from .MoonsDS import MoonsDS
 from .BlobsDS import BlobsDS
 from .CirclesDS import CirclesDS
+from .DigitsDS import DigitsDS
 from .IrisDS import IrisDS
 from .Blobs5DDS import Blobs5DDS
 from .BreastCancerDS import BreastCancerDS
@@ -12,4 +13,5 @@ __all__ = ['MoonsDS',
            'IrisDS',
            'Blobs5DDS',
            'BreastCancerDS',
+           'DigitsDS',
            'MNIST784DS']

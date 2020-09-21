@@ -35,7 +35,8 @@ class BaseCB(Callback):
         self.epoch_number = 0
         self.record = []
         self.experiment = {'model_name': model_name,
-                           'dataset_name': dataset_name}
+                           'dataset_name': dataset_name,
+                           'epochs_index': [[0]]}
         self.filename = filename
 
     def on_train_begin(self, logs):
@@ -54,6 +55,7 @@ class BaseCB(Callback):
         item = {'epoch': self.epoch_number,
                 'batch': batch}
 
+        self.experiment['epochs_index'][-1].append(len(self.record))
         self.record.append(item)
 
     def on_epoch_begin(self, epoch_number, logs):
@@ -61,6 +63,7 @@ class BaseCB(Callback):
         The method called when a new epoch begins.
         """
         self.epoch_number = epoch_number
+        self.experiment['epochs_index'].append([])
 
     def on_epoch_end(self, epoch_number, logs):
         """
@@ -78,3 +81,6 @@ class BaseCB(Callback):
         self.experiment['epochs'] = epoch_number
 
         joblib.dump(self.experiment, full_path)
+
+    #def on_train_end(self, logs):
+    #    print(self.experiment['epochs_index'])

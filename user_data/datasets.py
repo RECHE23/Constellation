@@ -22,7 +22,7 @@ INSTRUCTIONS:
 """
 
 from record import BlobsDS, MoonsDS, CirclesDS, IrisDS, Blobs5DDS, \
-    MNIST784DS, BreastCancerDS, DS
+    DigitsDS, MNIST784DS, BreastCancerDS, DS
 
 datasets = [
     BlobsDS(scale=True),
@@ -31,5 +31,6 @@ datasets = [
     # BreastCancerDS(scale=True),
     # Blobs5DDS(scale=True),
     # IrisDS(scale=True, selected_class=1),
+    # DigitsDS(scale=True),
     # MNIST784DS(scale=True, selected_class='3')
            ]
