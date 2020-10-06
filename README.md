@@ -2,6 +2,10 @@
 
 Constellation is a visualization tool created to observe the progression of neural network binary classifiers during training.
 
+| ![Layout sample](/sample.gif?raw=true "Comparison of different models on Iris Dataset") |
+|:--:|
+| Figure 1 &nbsp;&mdash;&nbsp; Comparison of different models on Iris Dataset. |
+
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements.
